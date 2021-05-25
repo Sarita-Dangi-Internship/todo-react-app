@@ -11,6 +11,9 @@ export default class AddNewInput extends Component {
             id="addItem"
             placeholder="Add new..."
           />
+          <span className="todo__calendar">
+            <i className="far fa-calendar-alt"></i>
+          </span>
           <button id="add">Add</button>
         </form>
       </>
