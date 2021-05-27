@@ -7,8 +7,6 @@ $white: #fff;
 $red: #d34f4f;
 $green: #338d33;
 
-
-
 %checklist-display {
   display: inline-flex;
   flex-flow: row wrap;
@@ -63,7 +61,7 @@ $green: #338d33;
     border-radius: 5px;
     margin: 30px 60px;
     background-color: $white;
-    input[type='text'] {
+    input[type="text"] {
       flex-grow: 2;
       border: none;
       font-size: 16px;
@@ -164,7 +162,7 @@ $green: #338d33;
           margin-top: 10px;
         }
       }
-      &:hover .icons-group{
+      &:hover .icons-group {
         visibility: visible;
       }
     }
@@ -196,7 +194,7 @@ $green: #338d33;
   position: absolute;
   top: 0px;
   left: 0;
-  content: '';
+  content: "";
   margin-right: 10px;
   display: inline-block;
   width: 17px;
@@ -209,13 +207,12 @@ $green: #338d33;
   background-color: transparent;
 }
 .checkmark:after {
-  content: '';
+  content: "";
   position: absolute;
   display: none;
 }
 .styled-checkbox input:checked ~ .checkmark:after {
   display: block;
- 
 }
 .styled-checkbox .checkmark:after {
   left: 4px;
@@ -223,7 +220,7 @@ $green: #338d33;
   width: 5px;
   height: 10px;
   border: solid $blue;
-  border-width: 0 3px 3px 0;;
+  border-width: 0 3px 3px 0;
   transform: rotate(45deg);
 }
 .edit-input {
@@ -255,7 +252,7 @@ $green: #338d33;
     margin-left: -50%;
   }
   .tooltiptext::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 100%;
     left: 50%;

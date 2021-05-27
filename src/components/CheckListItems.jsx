@@ -2,17 +2,17 @@ import React, { Component } from "react";
 
 export default class CheckListItems extends Component {
   render() {
-    const items = this.props.items;
-    console.log(items);
+    const { task, createdDate } = this.props.item;
+
     return (
       <>
-        <div className="main-container__checklist-items">
+        {/* <div className="main-container__checklist-items">
           <form>
-            {items.map((item) => (
-              <div className="checklist-row">
+            {items.map((item, index) => ( */}
+              <div className="checklist-row" >
                 <div className="form-group">
                   <label className="styled-checkbox" htmlFor="item1">
-                    {item.task || "Buy groceries for next week"}
+                    {task || "Buy groceries for next week"}
                     <input
                       type="checkbox"
                       id="item1"
@@ -27,17 +27,24 @@ export default class CheckListItems extends Component {
                     <span className="tooltiptext">Edit todo</span>
                   </i>
                   <i className="fas fa-trash-alt icon icon-trash tooltip">
-                    <span className="tooltiptext">Delete todo</span>
+                    <span
+                      className="tooltiptext"
+                      onClick={() => {
+                        this.props.handleOnDelete(this.props.index);
+                      }}
+                    >
+                      Delete todo
+                    </span>
                   </i>
                   <div className="date">
                     <i className="fas fa-info-circle tooltip">
                       <span className="tooltiptext">Created date</span>
                     </i>
-                    {item.createdDate || "28 Jun 2020"}
+                    {createdDate || "28 Jun 2020"}
                   </div>
                 </div>
               </div>
-            ))}
+            {/* ))} */}
 
             {/* <!-- first checklist row ends--> */}
 
@@ -73,8 +80,8 @@ export default class CheckListItems extends Component {
               </div>
             </div> */}
             {/* <!-- third checklist row ends--> */}
-          </form>
-        </div>
+          {/* </form>
+        </div> */}
       </>
     );
   }

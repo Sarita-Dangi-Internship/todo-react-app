@@ -1,4 +1,4 @@
-import "./App.scss";
+// import "./App.scss";
 import "./styles/main.scss";
 import Header from "./components/Header";
 import AddNewInput from "./components/AddNewInput";
@@ -18,7 +18,7 @@ export default class App extends Component {
   }
 
   handleOnChange = (event) => {
-    this.setState({key: new Date()})
+    this.setState({ key: new Date() });
     this.setState({ newTodo: event.target.value });
   };
   handleDate = (date) => {
@@ -32,7 +32,11 @@ export default class App extends Component {
     this.setState({
       items: [
         ...this.state.items,
-        { task: this.state.newTodo, createdDate: this.state.createdDate, key: this.state.key },
+        {
+          task: this.state.newTodo,
+          createdDate: this.state.createdDate,
+          key: this.state.key,
+        },
       ],
     });
     this.setState({
@@ -40,11 +44,11 @@ export default class App extends Component {
     });
   };
 
-  // handleOnDelete = (task) => {
-  //   console.log(task);
-  //   const items = this.state.items.filter(m => m.key !== task.key);
-  //   this.setState({ items: items });
-  // }
+  handleOnDelete = (index) => {
+    console.log(index);
+    const items = this.state.items.filter((m, ind) => ind !== index);
+    this.setState({ items: items });
+  };
   render() {
     return (
       <div className="App">
@@ -57,7 +61,22 @@ export default class App extends Component {
             handleDate={this.handleDate}
           />
           <Filter />
-          <CheckListItems items={this.state.items} />
+          <div className="main-container__checklist-items">
+            <form>
+              {this.state.items.map((item, index) => (
+                <CheckListItems
+                  key={index}
+                  item={item}
+                  index={index}
+                  handleOnDelete={this.handleOnDelete}
+                />
+              ))}
+            </form>
+          </div>
+          {/* <CheckListItems
+            items={this.state.items}
+            handleOnDelete={this.handleOnDelete}
+          /> */}
         </div>
       </div>
     );

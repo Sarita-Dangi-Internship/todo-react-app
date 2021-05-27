@@ -19,7 +19,7 @@ export default class AddNewInput extends Component {
             id="addItem"
             placeholder="Add new..."
             value={this.props.value}
-            onChange={this.props.handleChange}
+            onChange={this.props.handleOnChange}
           />
           <span className="todo__calendar">
             <Calendar handleDate={ this.props.handleDate}/>
