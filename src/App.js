@@ -3,7 +3,7 @@ import "./styles/main.scss";
 import Header from "./components/Header";
 import AddNewInput from "./components/AddNewInput";
 import Filter from "./components/FilterSortItems";
-import CheckListItems from "./components/CheckListItems";
+import CheckListItems from "./components/CheckListItem";
 import React, { Component } from "react";
 
 export default class App extends Component {
@@ -12,13 +12,12 @@ export default class App extends Component {
     this.state = {
       newTodo: "",
       createdDate: "",
-      key: null,
-      items: [{ task: "go to shopping", createdDate: "25 May 2021", key: "" }],
+      items: [{ task: "go to shopping", createdDate: "25 May 2021" }],
+      editMode: "false",
     };
   }
 
   handleOnChange = (event) => {
-    this.setState({ key: new Date() });
     this.setState({ newTodo: event.target.value });
   };
   handleDate = (date) => {
@@ -35,7 +34,6 @@ export default class App extends Component {
         {
           task: this.state.newTodo,
           createdDate: this.state.createdDate,
-          key: this.state.key,
         },
       ],
     });
@@ -48,6 +46,13 @@ export default class App extends Component {
     console.log(index);
     const items = this.state.items.filter((m, ind) => ind !== index);
     this.setState({ items: items });
+  };
+
+  handleOnEdit = (index) => {
+
+    if (!this.state.editMode) {
+      
+}
   };
   render() {
     return (
@@ -69,6 +74,7 @@ export default class App extends Component {
                   item={item}
                   index={index}
                   handleOnDelete={this.handleOnDelete}
+                  handleOnEdit={this.handleOnEdit}
                 />
               ))}
             </form>
