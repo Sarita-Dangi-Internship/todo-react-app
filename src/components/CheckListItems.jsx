@@ -2,74 +2,47 @@ import React, { Component } from "react";
 
 export default class CheckListItems extends Component {
   render() {
+    const items = this.props.items;
+    console.log(items);
     return (
       <>
         <div className="main-container__checklist-items">
           <form>
-            {/* <!-- first checklist row starts --> */}
-            <div className="checklist-row">
-              <div className="form-group">
-                <label className="styled-checkbox" htmlFor="item1">
-                  Buy groceries for next week
-                  <input
-                    type="checkbox"
-                    id="item1"
-                    name="item1"
-                    value="item1"
-                  />
-                  <span className="checkmark"></span>
-                </label>
-              </div>
-              <div className="icons-group">
-                <i className="fas fa-pen icon icon-pen tooltip">
-                  <span className="tooltiptext">Edit todo</span>
-                </i>
-                <i className="fas fa-trash-alt icon icon-trash tooltip">
-                  <span className="tooltiptext">Delete todo</span>
-                </i>
-                <div className="date">
-                  <i className="fas fa-info-circle tooltip">
-                    <span className="tooltiptext">Created date</span>
+            {items.map((item) => (
+              <div className="checklist-row">
+                <div className="form-group">
+                  <label className="styled-checkbox" htmlFor="item1">
+                    {item.task || "Buy groceries for next week"}
+                    <input
+                      type="checkbox"
+                      id="item1"
+                      name="item1"
+                      value="item1"
+                    />
+                    <span className="checkmark"></span>
+                  </label>
+                </div>
+                <div className="icons-group">
+                  <i className="fas fa-pen icon icon-pen tooltip">
+                    <span className="tooltiptext">Edit todo</span>
                   </i>
-                  28 Jun 2020
+                  <i className="fas fa-trash-alt icon icon-trash tooltip">
+                    <span className="tooltiptext">Delete todo</span>
+                  </i>
+                  <div className="date">
+                    <i className="fas fa-info-circle tooltip">
+                      <span className="tooltiptext">Created date</span>
+                    </i>
+                    {item.createdDate || "28 Jun 2020"}
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
+
             {/* <!-- first checklist row ends--> */}
 
-            {/* <!-- second checklist row starts--> */}
-            <div className="checklist-row">
-              <div className="form-group">
-                <label className="styled-checkbox" htmlFor="item2">
-                  Renew car insurance
-                  <input
-                    type="checkbox"
-                    id="item2"
-                    name="item2"
-                    value="item2"
-                  />
-                  <span className="checkmark"></span>
-                </label>
-              </div>
-              <div className="icons-group">
-                <i className="fas fa-pen icon icon-pen tooltip">
-                  <span className="tooltiptext">Edit todo</span>
-                </i>
-                <i className="fas fa-trash-alt icon icon-trash tooltip">
-                  <span className="tooltiptext">Delete todo</span>
-                </i>
-                <div className="date">
-                  <i className="fas fa-info-circle tooltip">
-                    <span className="tooltiptext">Created date</span>
-                  </i>
-                  28 Jun 2020
-                </div>
-              </div>
-            </div>
-            {/* <!-- second checklist row ends--> */}
-
             {/* <!-- third checklist row starts--> */}
-            <div className="checklist-row">
+            {/* <div className="checklist-row">
               <div className="form-group">
                 <label className="styled-checkbox" htmlFor="item3">
                   <input
@@ -86,9 +59,9 @@ export default class CheckListItems extends Component {
                   value="Sign up for online course edit test"
                 />
               </div>
-              <div className="icons-group">
-                {/* <!-- <i className="fas fa-pen icon icon-pen tooltip"><span className="tooltiptext">Edit todo</span></i> --> */}
-                <i className="fas fa-trash-alt icon icon-trash tooltip">
+              <div className="icons-group"> */}
+            {/* <!-- <i className="fas fa-pen icon icon-pen tooltip"><span className="tooltiptext">Edit todo</span></i> --> */}
+            {/* <i className="fas fa-trash-alt icon icon-trash tooltip">
                   <span className="tooltiptext">Delete todo</span>
                 </i>
                 <div className="date">
@@ -98,7 +71,7 @@ export default class CheckListItems extends Component {
                   28 Jun 2020
                 </div>
               </div>
-            </div>
+            </div> */}
             {/* <!-- third checklist row ends--> */}
           </form>
         </div>
