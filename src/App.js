@@ -3,7 +3,7 @@ import "./styles/main.scss";
 import Header from "./components/Header";
 import AddNewInput from "./components/AddNewInput";
 import Filter from "./components/FilterSortItems";
-import CheckListItems from "./components/CheckListItem";
+import CheckListItem from "./components/CheckListItem";
 import React, { Component } from "react";
 
 export default class App extends Component {
@@ -12,8 +12,13 @@ export default class App extends Component {
     this.state = {
       newTodo: "",
       createdDate: "",
-      items: [{ task: "go to shopping", createdDate: "25 May 2021" }],
-      editMode: "false",
+      items: [
+        {
+          task: "go to shopping",
+          createdDate: "25 May 2021",
+          status: "pending",
+        },
+      ],
     };
   }
 
@@ -25,8 +30,8 @@ export default class App extends Component {
     this.setState({ createdDate: date.toDateString() });
   };
 
-  handleOnSubmit = (e) => {
-    e.preventDefault();
+  handleOnSubmit = (event) => {
+    event.preventDefault();
     console.log("task", this.state.newTodo, this.state.createdDate);
     this.setState({
       items: [
@@ -48,12 +53,25 @@ export default class App extends Component {
     this.setState({ items: items });
   };
 
-  handleOnEdit = (index) => {
+  handleOnSave = (event, index) => {
+    event.preventDefault();
+    console.log("task", event, index);
 
-    if (!this.state.editMode) {
-      
-}
+    this.setState({
+      items: this.state.items.map((item, ind) => {
+        if (ind === index) {
+          item.task = event.target.value;
+          return item;
+        }
+        return item;
+      }),
+    });
+
+    // this.setState({
+    //   isEditMode: false,
+    // });
   };
+
   render() {
     return (
       <div className="App">
@@ -69,12 +87,12 @@ export default class App extends Component {
           <div className="main-container__checklist-items">
             <form>
               {this.state.items.map((item, index) => (
-                <CheckListItems
+                <CheckListItem
                   key={index}
                   item={item}
                   index={index}
                   handleOnDelete={this.handleOnDelete}
-                  handleOnEdit={this.handleOnEdit}
+                  // handleOnSave={this.handleOnSave}
                 />
               ))}
             </form>
