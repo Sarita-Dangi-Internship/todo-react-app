@@ -23,9 +23,7 @@ export default class CheckListItem extends Component {
     const { isEditMode } = this.state;
     return (
       <>
-        {/* <div className="main-container__checklist-items">
-          <form>
-            {items.map((item, index) => ( */}
+       
         <div className="checklist-row">
           {!isEditMode ? (
             <>
@@ -114,8 +112,7 @@ export default class CheckListItem extends Component {
           )}
         </div>
 
-        {/* </form>
-        </div>  */}
+        
       </>
     );
   }

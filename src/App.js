@@ -7,26 +7,22 @@ import CheckListItem from "./components/CheckListItem";
 import React, { Component } from "react";
 
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      newTodo: "",
-      createdDate: "",
-      items: [
-        {
-          task: "go to shopping",
-          createdDate: "25 May 2021",
-          status: "pending",
-        },
-      ],
-    };
-  }
+  state = {
+    newTodo: "",
+    createdDate: "",
+    items: [
+      {
+        task: "go to shopping",
+        createdDate: "25 May 2021",
+        status: "pending",
+      },
+    ],
+  };
 
   handleOnChange = (event) => {
     this.setState({ newTodo: event.target.value });
   };
   handleDate = (date) => {
-    console.log("date", date, new Date(date));
     this.setState({ createdDate: date.toDateString() });
   };
 
@@ -48,7 +44,6 @@ export default class App extends Component {
   };
 
   handleOnDelete = (index) => {
-    console.log(index);
     const items = this.state.items.filter((m, ind) => ind !== index);
     this.setState({ items: items });
   };
@@ -72,6 +67,10 @@ export default class App extends Component {
     // });
   };
 
+  handleOnSelect = (item) => {
+    console.log(item);
+  }
+
   render() {
     return (
       <div className="App">
@@ -83,7 +82,7 @@ export default class App extends Component {
             handleOnSubmit={this.handleOnSubmit}
             handleDate={this.handleDate}
           />
-          <Filter />
+          <Filter onItemSelect={this.handleOnSelect} />
           <div className="main-container__checklist-items">
             <form>
               {this.state.items.map((item, index) => (

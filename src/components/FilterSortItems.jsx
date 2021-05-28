@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import classNameName from "./FilterSortItems";
 
 export default class FilterSortItems extends Component {
   render() {
@@ -9,7 +8,7 @@ export default class FilterSortItems extends Component {
           {/* filter section starts */}
           <form action="" className="filter">
             <label for="filter">Filter</label>
-            <select id="filter" name="filter" className="select">
+            <select id="filter" name="filter" className="select" >
               <option value="all">All</option>
               <option value="completed">Completed</option>
               <option value="active">Active</option>
