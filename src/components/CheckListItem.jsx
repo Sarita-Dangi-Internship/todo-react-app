@@ -12,29 +12,37 @@ export default class CheckListItem extends Component {
   handleOnEdit = () => {
     this.setState({ isEditMode: true });
   };
+  handleOnCancel = () => {
+    this.setState({ isEditMode: false });
+  };
   handleOnChange = (event) => {
     this.setState({ newTodo: event.target.value });
     console.log("edit", this.state.newTodo);
   };
+  handleOnSave = (index) => {
+    this.props.editTask(this.props.index, this.state.newTodo);
+    this.setState({ newTodo: "" });
+    this.setState({ isEditMode: false });
+  };
 
   render() {
-    const { task, createdDate } = this.props.item;
-    const { handleOnDelete, index, handleOnSave } = this.props;
+    const { task, createdDate, completed } = this.props.item;
+    const { handleOnDelete, index, toggleTaskCompleted } = this.props;
     const { isEditMode } = this.state;
     return (
       <>
-       
         <div className="checklist-row">
           {!isEditMode ? (
             <>
               <div className="form-group">
-                <label className="styled-checkbox" htmlFor="item1">
+                <label className="styled-checkbox" htmlFor={index}>
                   {task || "Buy groceries for next week"}
                   <input
                     type="checkbox"
-                    id="item1"
-                    name="item1"
+                    id={index}
                     value="item1"
+                    defaultChecked={completed}
+                    onChange={() => toggleTaskCompleted(index)}
                   />
                   <span className="checkmark"></span>
                 </label>
@@ -68,13 +76,8 @@ export default class CheckListItem extends Component {
             <>
               {" "}
               <div className="form-group">
-                <label className="styled-checkbox" htmlFor="item3">
-                  <input
-                    type="checkbox"
-                    id="item3"
-                    name="item3"
-                    value="item3"
-                  />
+                <label className="styled-checkbox" htmlFor={index}>
+                  <input type="checkbox" id={index} value="item3" />
                   <span className="checkmark"></span>
                 </label>
                 <input
@@ -87,11 +90,17 @@ export default class CheckListItem extends Component {
               <div className="icons-group">
                 <i
                   className="fas fa-check icon icon-pen tooltip"
-                  // onClick={() => {
-                  //   handleOnSave(index);
-                  // }}
+                  onClick={() => {
+                    this.handleOnSave(index);
+                  }}
                 >
                   <span className="tooltiptext">Save todo</span>
+                </i>
+                <i
+                  className="fas fa-times icon icon-trash tooltip"
+                  onClick={() => this.handleOnCancel(index)}
+                >
+                  <span className="tooltiptext">Cancel edit</span>
                 </i>
                 <i
                   className="fas fa-trash-alt icon icon-trash tooltip"
@@ -111,8 +120,6 @@ export default class CheckListItem extends Component {
             </>
           )}
         </div>
-
-        
       </>
     );
   }

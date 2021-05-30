@@ -1,4 +1,3 @@
-// import "./App.scss";
 import "./styles/main.scss";
 import Header from "./components/Header";
 import AddNewInput from "./components/AddNewInput";
@@ -10,11 +9,12 @@ export default class App extends Component {
   state = {
     newTodo: "",
     createdDate: "",
+    completed: false,
     items: [
       {
         task: "go to shopping",
         createdDate: "25 May 2021",
-        status: "pending",
+        completed: false,
       },
     ],
   };
@@ -28,13 +28,13 @@ export default class App extends Component {
 
   handleOnSubmit = (event) => {
     event.preventDefault();
-    console.log("task", this.state.newTodo, this.state.createdDate);
     this.setState({
       items: [
         ...this.state.items,
         {
           task: this.state.newTodo,
           createdDate: this.state.createdDate,
+          completed: this.state.completed,
         },
       ],
     });
@@ -48,28 +48,25 @@ export default class App extends Component {
     this.setState({ items: items });
   };
 
-  handleOnSave = (event, index) => {
-    event.preventDefault();
-    console.log("task", event, index);
-
-    this.setState({
-      items: this.state.items.map((item, ind) => {
-        if (ind === index) {
-          item.task = event.target.value;
-          return item;
-        }
-        return item;
-      }),
+  toggleTaskCompleted = (index) => {
+    const updatedItems = this.state.items.map((item, ind) => {
+      if (index === ind) {
+        return { ...item, completed: !item.completed };
+      }
+      return item;
     });
-
-    // this.setState({
-    //   isEditMode: false,
-    // });
+    this.setState({ items: updatedItems });
   };
 
-  handleOnSelect = (item) => {
-    console.log(item);
-  }
+  editTask = (index, newtask) => {
+    const editedTaskList = this.state.items.map((item, ind) => {
+      if (index === ind) {
+        return { ...item, task: newtask };
+      }
+      return item;
+    });
+    this.setState({ items: editedTaskList });
+  };
 
   render() {
     return (
@@ -90,16 +87,14 @@ export default class App extends Component {
                   key={index}
                   item={item}
                   index={index}
+                  completed={item.completed}
+                  toggleTaskCompleted={this.toggleTaskCompleted}
                   handleOnDelete={this.handleOnDelete}
-                  // handleOnSave={this.handleOnSave}
+                  editTask={this.editTask}
                 />
               ))}
             </form>
           </div>
-          {/* <CheckListItems
-            items={this.state.items}
-            handleOnDelete={this.handleOnDelete}
-          /> */}
         </div>
       </div>
     );

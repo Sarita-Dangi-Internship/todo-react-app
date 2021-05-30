@@ -7,9 +7,9 @@ export default class FilterSortItems extends Component {
         <div className="main-container__items-filter-sort">
           {/* filter section starts */}
           <form action="" className="filter">
-            <label for="filter">Filter</label>
+            <label htmlFor="filter">Filter</label>
             <select id="filter" name="filter" className="select" >
-              <option value="all">All</option>
+              <option value="all" aria-pressed="true">All</option>
               <option value="completed">Completed</option>
               <option value="active">Active</option>
               <option value="due-date">Has due date</option>
@@ -19,7 +19,7 @@ export default class FilterSortItems extends Component {
 
           {/*  sort section starts */}
           <form action="" className="sort">
-            <label for="sort">Sort</label>
+            <label htmlFor="sort">Sort</label>
             <select id="sort" name="sort" className="select">
               <option value="addedDate">Added date</option>
               <option value="active">Due date</option>
