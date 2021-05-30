@@ -8,11 +8,17 @@ export default class FilterSortItems extends Component {
           {/* filter section starts */}
           <form action="" className="filter">
             <label htmlFor="filter">Filter</label>
-            <select id="filter" name="filter" className="select" >
-              <option value="all" aria-pressed="true">All</option>
-              <option value="completed">Completed</option>
-              <option value="active">Active</option>
-              <option value="due-date">Has due date</option>
+            <select
+              id="filter"
+              className="select"
+              value={this.props.filter}
+              onChange={this.props.handleOnFilter}
+            >
+              {this.props.filterNames.map((name) => (
+                <option role="button" key={name} value={name}>
+                  {name}
+                </option>
+              ))}
             </select>
           </form>
           {/*  filter section ends */}

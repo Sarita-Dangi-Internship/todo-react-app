@@ -5,16 +5,26 @@ import Filter from "./components/FilterSortItems";
 import CheckListItem from "./components/CheckListItem";
 import React, { Component } from "react";
 
+const FILTER_MAP = {
+  All: () => true,
+  Active: (task) => !task.completed,
+  Completed: (task) => task.completed,
+};
+
+const FILTER_NAMES = Object.keys(FILTER_MAP);
+
 export default class App extends Component {
   state = {
     newTodo: "",
     createdDate: "",
     completed: false,
+    filter: "All",
+   
     items: [
       {
         task: "go to shopping",
         createdDate: "25 May 2021",
-        completed: false,
+        completed: true,
       },
     ],
   };
@@ -48,6 +58,11 @@ export default class App extends Component {
     this.setState({ items: items });
   };
 
+  handleOnFilter = (event) => {
+    console.log("item selected", event);
+    this.setState({ filter:event.target.value });
+  };
+
   toggleTaskCompleted = (index) => {
     const updatedItems = this.state.items.map((item, ind) => {
       if (index === ind) {
@@ -68,6 +83,7 @@ export default class App extends Component {
     this.setState({ items: editedTaskList });
   };
 
+ 
   render() {
     return (
       <div className="App">
@@ -79,20 +95,28 @@ export default class App extends Component {
             handleOnSubmit={this.handleOnSubmit}
             handleDate={this.handleDate}
           />
-          <Filter onItemSelect={this.handleOnSelect} />
+          <Filter
+            filterNames={FILTER_NAMES}
+            filter={this.state.filter}
+            handleOnFilter={this.handleOnFilter}
+            sort={this}
+          />
+
           <div className="main-container__checklist-items">
             <form>
-              {this.state.items.map((item, index) => (
-                <CheckListItem
-                  key={index}
-                  item={item}
-                  index={index}
-                  completed={item.completed}
-                  toggleTaskCompleted={this.toggleTaskCompleted}
-                  handleOnDelete={this.handleOnDelete}
-                  editTask={this.editTask}
-                />
-              ))}
+              {this.state.items
+                .filter(FILTER_MAP[this.state.filter ])
+                .map((item, index) => (
+                  <CheckListItem
+                    key={index}
+                    item={item}
+                    index={index}
+                    completed={item.completed}
+                    toggleTaskCompleted={this.toggleTaskCompleted}
+                    handleOnDelete={this.handleOnDelete}
+                    editTask={this.editTask}
+                  />
+                ))}
             </form>
           </div>
         </div>
