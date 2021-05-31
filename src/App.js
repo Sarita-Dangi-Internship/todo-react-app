@@ -20,11 +20,12 @@ export default class App extends Component {
     completed: false,
     filter: "All",
     isOldestFirst: true,
-    sortBy:"addedDate",
+    sortBy: "addedDate",
+    sortAsc: true,
     items: [
       {
         task: "go to shopping",
-        createdDate: "25 May 2021",
+        createdDate: "2021-3-27",
         completed: true,
       },
     ],
@@ -34,7 +35,10 @@ export default class App extends Component {
     this.setState({ newTodo: event.target.value });
   };
   handleDate = (date) => {
-    this.setState({ createdDate: date.toDateString() });
+    // this.setState({ createdDate: date.toDateString() });
+    this.setState({
+      createdDate: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
+    });
   };
 
   handleOnSubmit = (event) => {
@@ -56,18 +60,17 @@ export default class App extends Component {
   };
 
   handleOnDelete = (index) => {
-    const items = this.state.items.filter((m, ind) => ind !== index);
+    const items = this.state.items.filter((item, index) => index !== index);
     this.setState({ items: items });
   };
 
   handleOnFilter = (event) => {
-    console.log("item selected", event);
     this.setState({ filter: event.target.value });
   };
 
   toggleTaskCompleted = (index) => {
-    const updatedItems = this.state.items.map((item, ind) => {
-      if (index === ind) {
+    const updatedItems = this.state.items.map((item, index) => {
+      if (index === index) {
         return { ...item, completed: !item.completed };
       }
       return item;
@@ -85,22 +88,22 @@ export default class App extends Component {
     this.setState({ items: editedTaskList });
   };
 
-  sortByDate = () => {
-    const { items, sortBy } = this.state;
+  handleChangeOnSort = (sortBy) => {
+    const { items } = this.state;
+    console.log("sort", sortBy);
     let sortedItems = items;
     const sorted = sortedItems.sort(
       (d1, d2) =>
-        d1.createdDate-d2.createdDate
-        // new Date(d1.createdDate).getTime() - new Date(d2.cretedDate).getTime()
-        // new Date(d2.createdDate).getTime() - new Date(d1.cretedDate).getTime()
+        new Date(new Date(d2.createdDate)) - new Date(new Date(d1.createdDate))
     );
-    console.log(sorted);
-    // this.setState({ sortedItems: sorted });
+    this.setState({ sortBy });
   };
 
-  handleChangeOnSort = (sortBy) => {
-    this.setState({sortBy})
-  }
+  toggleSortAsc = () => {
+    this.setState({ sortAsc: !this.state.sortAsc });
+    console.log("toggle", this.state.sortAsc);
+  };
+
   render() {
     return (
       <div className="App">
@@ -115,9 +118,10 @@ export default class App extends Component {
           <Filter
             filterNames={FILTER_NAMES}
             filter={this.state.filter}
-            handleChangeOnSort={this.handleChangeOnSort}
             handleOnFilter={this.handleOnFilter}
+            handleChangeOnSort={this.handleChangeOnSort}
             handleOnSort={this.sortByDate}
+            toggleSortAsc={this.toggleSortAsc}
           />
 
           <div className="main-container__checklist-items">

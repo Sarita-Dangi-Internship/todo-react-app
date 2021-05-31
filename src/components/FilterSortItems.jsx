@@ -35,7 +35,10 @@ export default class FilterSortItems extends Component {
               <option value="addedDate">Added date</option>
               <option value="dueDate">Due date</option>
             </select>
-            <i className="fas fa-sort-amount-down-alt"></i>
+            <i
+              className="fas fa-sort-amount-down-alt"
+              onClick={() => this.props.toggleSortAsc()}
+            ></i>
           </form>
           {/*  sort section ends  */}
         </div>
