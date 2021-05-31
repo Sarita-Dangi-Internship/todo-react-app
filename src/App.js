@@ -19,7 +19,8 @@ export default class App extends Component {
     createdDate: "",
     completed: false,
     filter: "All",
-   
+    isOldestFirst: true,
+    sortBy:"addedDate",
     items: [
       {
         task: "go to shopping",
@@ -50,6 +51,7 @@ export default class App extends Component {
     });
     this.setState({
       newTodo: "",
+      createdDate: new Date(),
     });
   };
 
@@ -60,7 +62,7 @@ export default class App extends Component {
 
   handleOnFilter = (event) => {
     console.log("item selected", event);
-    this.setState({ filter:event.target.value });
+    this.setState({ filter: event.target.value });
   };
 
   toggleTaskCompleted = (index) => {
@@ -83,7 +85,22 @@ export default class App extends Component {
     this.setState({ items: editedTaskList });
   };
 
- 
+  sortByDate = () => {
+    const { items, sortBy } = this.state;
+    let sortedItems = items;
+    const sorted = sortedItems.sort(
+      (d1, d2) =>
+        d1.createdDate-d2.createdDate
+        // new Date(d1.createdDate).getTime() - new Date(d2.cretedDate).getTime()
+        // new Date(d2.createdDate).getTime() - new Date(d1.cretedDate).getTime()
+    );
+    console.log(sorted);
+    // this.setState({ sortedItems: sorted });
+  };
+
+  handleChangeOnSort = (sortBy) => {
+    this.setState({sortBy})
+  }
   render() {
     return (
       <div className="App">
@@ -98,14 +115,15 @@ export default class App extends Component {
           <Filter
             filterNames={FILTER_NAMES}
             filter={this.state.filter}
+            handleChangeOnSort={this.handleChangeOnSort}
             handleOnFilter={this.handleOnFilter}
-            sort={this}
+            handleOnSort={this.sortByDate}
           />
 
           <div className="main-container__checklist-items">
             <form>
               {this.state.items
-                .filter(FILTER_MAP[this.state.filter ])
+                .filter(FILTER_MAP[this.state.filter])
                 .map((item, index) => (
                   <CheckListItem
                     key={index}

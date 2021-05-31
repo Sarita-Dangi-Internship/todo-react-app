@@ -26,9 +26,14 @@ export default class FilterSortItems extends Component {
           {/*  sort section starts */}
           <form action="" className="sort">
             <label htmlFor="sort">Sort</label>
-            <select id="sort" name="sort" className="select">
+            <select
+              id="sort"
+              name="sort"
+              className="select"
+              onChange={(e) => this.props.handleChangeOnSort(e.target.value)}
+            >
               <option value="addedDate">Added date</option>
-              <option value="active">Due date</option>
+              <option value="dueDate">Due date</option>
             </select>
             <i className="fas fa-sort-amount-down-alt"></i>
           </form>
